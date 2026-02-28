@@ -19,13 +19,12 @@
     }
 
     :root {
-      --bg: #0a0a12;
+      --bg: #000000;
       --card: rgba(255, 255, 255, 0.04);
       --border: rgba(255, 255, 255, 0.08);
       --accent1: #7c6bff;
       --accent2: #e040fb;
       --text: #f0f0ff;
-      --sub: rgba(240, 240, 255, 0.5);
     }
 
     body {
@@ -34,7 +33,6 @@
       color: var(--text);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow: hidden;
@@ -105,6 +103,7 @@
       -webkit-backdrop-filter: blur(24px);
       box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
       animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+      transition: opacity 1s ease;
     }
 
     @keyframes fadeUp {
@@ -130,35 +129,6 @@
       background-clip: text;
     }
 
-    .tagline {
-      margin-top: 18px;
-      font-size: 1.1rem;
-      font-weight: 300;
-      color: var(--sub);
-      letter-spacing: 0.02em;
-    }
-
-    .badge {
-      display: inline-block;
-      margin-top: 36px;
-      padding: 10px 24px;
-      border-radius: 100px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(124, 107, 255, 0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: default;
-    }
-
-    .badge:hover {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 8px 32px rgba(124, 107, 255, 0.55);
-    }
-
     /* Subtle grid pattern overlay */
     body::before {
       content: '';
@@ -172,13 +142,34 @@
       z-index: 0;
     }
 
-    .footer {
+    /* Rockets screen */
+    #rockets {
       position: fixed;
-      bottom: 24px;
-      font-size: 0.78rem;
-      color: var(--sub);
-      z-index: 1;
-      letter-spacing: 0.04em;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 4rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+      z-index: 10;
+    }
+
+    #rockets.visible {
+      opacity: 1;
+    }
+
+    /* Page dissolve */
+    #page {
+      display: contents;
+      transition: opacity 1s ease;
+    }
+
+    #page.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     @media (max-width: 600px) {
@@ -191,17 +182,41 @@
 </head>
 
 <body>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
 
-  <main class="card" id="main-card">
-    <h1 class="greeting">Hello, World!</h1>
-    <p class="tagline">My first app — live on GitHub 🚀</p>
-    <span class="badge">✦ Just Getting Started</span>
-  </main>
+  <div id="page">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
 
-  <footer class="footer">Built with ♥ and pushed to GitHub</footer>
+    <main class="card" id="main-card">
+      <h1 class="greeting">Hello, World!</h1>
+    </main>
+  </div>
+
+  <div id="rockets">
+    🚀 🚀 🚀 🚀 🚀
+  </div>
+
+  <script>
+    setTimeout(() => {
+      // Dissolve the page
+      const page = document.getElementById('page');
+      const orbs = document.querySelectorAll('.orb');
+      const card = document.getElementById('main-card');
+
+      card.style.opacity = '0';
+      orbs.forEach(o => o.style.opacity = '0');
+      orbs.forEach(o => o.style.transition = 'opacity 1s ease');
+
+      // Show rockets after dissolve
+      setTimeout(() => {
+        document.querySelectorAll('#page > *').forEach(el => el.style.display = 'none');
+        document.getElementById('rockets').classList.add('visible');
+      }, 1000);
+
+    }, 5000);
+  </script>
+
 </body>
 
 </html>
