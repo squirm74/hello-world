@@ -1,6 +1,6 @@
 # Hello World 👋
 
-A beautiful "Hello, World!" web app — my first project on GitHub.
+Hello World!
 
 ## 🚀 Getting Started
 
