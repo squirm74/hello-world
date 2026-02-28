@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World</title>
+  <meta name="description" content="A beautiful Hello World application." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a12;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --accent1: #7c6bff;
+      --accent2: #e040fb;
+      --text: #f0f0ff;
+      --sub: rgba(240,240,255,0.5);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated gradient orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      animation: drift 10s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb1 { width: 520px; height: 520px; background: var(--accent1); top: -120px; left: -120px; animation-duration: 12s; }
+    .orb2 { width: 400px; height: 400px; background: var(--accent2); bottom: -100px; right: -80px; animation-duration: 9s; animation-delay: -4s; }
+    .orb3 { width: 300px; height: 300px; background: #00d4ff; top: 50%; right: 15%; animation-duration: 14s; animation-delay: -7s; opacity: 0.18; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 64px 72px;
+      text-align: center;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(36px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .greeting {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #fff 30%, var(--accent1) 60%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      margin-top: 18px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--sub);
+      letter-spacing: 0.02em;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 36px;
+      padding: 10px 24px;
+      border-radius: 100px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(124,107,255,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: default;
+    }
+    .badge:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 32px rgba(124,107,255,0.55);
+    }
+
+    /* Subtle grid pattern overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 24px;
+      font-size: 0.78rem;
+      color: var(--sub);
+      z-index: 1;
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 40px 28px; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <main class="card" id="main-card">
+    <h1 class="greeting">Hello, World!</h1>
+    <p class="tagline">My first app — live on GitHub 🚀</p>
+    <span class="badge">✦ Just Getting Started</span>
+  </main>
+
+  <footer class="footer">Built with ♥ and pushed to GitHub</footer>
+</body>
+</html>
